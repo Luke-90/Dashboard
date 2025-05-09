@@ -3,100 +3,88 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Live Power BI Dashboard</title>
-  
-  <!-- Google Font for sleek appearance -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  
+  <title>Live Rotating Power BI Dashboard</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background: #061c35;
-      color: #ffffff;
+      background-color: #061c35;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      padding: 20px;
+      justify-content: start;
+      height: 100vh;
     }
 
-    .header {
+    header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 90%;
       max-width: 1200px;
-      margin-bottom: 20px;
+      margin-top: 20px;
     }
 
     .logo {
-      width: 160px;
-      height: auto;
-      margin-right: 20px;
+      height: 60px;
     }
 
     .clock {
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: #ffffff;
-    }
-
-    .dashboard-container {
-      width: 90%;
-      max-width: 1200px;
-      height: 80vh;
-      background: #ffffff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      font-size: 1.2rem;
+      font-weight: 600;
     }
 
     iframe {
-      width: 100%;
-      height: 100%;
+      width: 90%;
+      max-width: 1200px;
+      height: 80vh;
+      margin-top: 20px;
       border: none;
-    }
-
-    footer {
-      margin-top: auto;
-      padding: 10px;
-      font-size: 0.9rem;
-      color: #ccc;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
   </style>
-
-  <meta http-equiv="refresh" content="300" />
 </head>
 <body>
-  <div class="header">
-    <img class="logo" src="https://www.robertstravelgroup.co.uk/images/brand/logos/logo-white.svg" alt="Company Logo">
+
+  <header>
+    <img src="https://www.robertstravelgroup.co.uk/images/brand/logos/logo-white.svg" class="logo" alt="Company Logo">
     <div class="clock" id="clock"></div>
-  </div>
+  </header>
 
-  <div class="dashboard-container">
-    <iframe 
-      src="https://app.powerbi.com/view?r=YOUR_REPORT_LINK_HERE" 
-      allowfullscreen
-    ></iframe>
-  </div>
-
-  <footer>
-    Powered by Power BI & GitHub Pages
-  </footer>
+  <iframe id="dashboard" src="" allowfullscreen></iframe>
 
   <script>
+    const dashboardLinks = [
+      "https://app.powerbi.com/view?r=YOUR_REPORT_ID&pageName=ReportSection1",
+      "https://app.powerbi.com/view?r=YOUR_REPORT_ID&pageName=ReportSection2",
+      "https://app.powerbi.com/view?r=YOUR_REPORT_ID&pageName=ReportSection3"
+    ];
+
+    let current = 0;
+    const iframe = document.getElementById("dashboard");
+
+    function rotateDashboard() {
+      iframe.src = dashboardLinks[current];
+      current = (current + 1) % dashboardLinks.length;
+    }
+
+    // Start slideshow
+    rotateDashboard();
+    setInterval(rotateDashboard, 30000); // Change slide every 30 seconds
+
+    // Clock
     function updateClock() {
       const now = new Date();
-      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      const date = now.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      const time = now.toLocaleTimeString();
+      const date = now.toLocaleDateString();
       document.getElementById("clock").textContent = `${date} – ${time}`;
     }
     setInterval(updateClock, 1000);
     updateClock();
   </script>
+
 </body>
 </html>
-
 

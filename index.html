@@ -3,88 +3,120 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Live Rotating Power BI Dashboard</title>
+  <title>Roberts Travel - Live Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
+      font-family: 'Orbitron', sans-serif;
       background-color: #061c35;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: white;
+      color: #ffffff;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: start;
-      height: 100vh;
+      justify-content: flex-start;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    header {
+    .circle-bg {
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background-color: #0e2a50;
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .header {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1200px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 90%;
-      max-width: 1200px;
-      margin-top: 20px;
+      padding: 20px;
     }
 
     .logo {
-      height: 60px;
+      height: 80px;
+      width: auto;
     }
 
     .clock {
-      font-size: 1.2rem;
-      font-weight: 600;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #ffffff;
+      text-align: right;
     }
 
-    iframe {
+    .dashboard-container {
+      position: relative;
+      z-index: 1;
       width: 90%;
       max-width: 1200px;
       height: 80vh;
-      margin-top: 20px;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
       border: none;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 15px;
+      font-size: 0.9rem;
+      color: #ccc;
+      z-index: 1;
+      text-align: center;
     }
   </style>
+  <!-- Optional: Refresh page every 5 minutes -->
+  <meta http-equiv="refresh" content="300" />
 </head>
 <body>
+  <div class="circle-bg"></div>
 
-  <header>
-    <img src="https://www.robertstravelgroup.co.uk/images/brand/logos/logo-white.svg" class="logo" alt="Company Logo">
+  <div class="header">
+    <img src="https://www.robertstravelgroup.co.uk/images/brand/logos/logo-white.svg" alt="Roberts Logo" class="logo" />
     <div class="clock" id="clock"></div>
-  </header>
+  </div>
 
-  <iframe id="dashboard" src="" allowfullscreen></iframe>
+  <div class="dashboard-container">
+    <iframe 
+      src="https://app.powerbi.com/reportEmbed?reportId=39a90441-9819-4d4b-8471-c5dcb2a957f5&autoAuth=true&ctid=2330b479-2e5b-4416-aeec-e1cbf7277d6d"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <footer>
+    © Roberts Travel Group | Powered by Power BI & GitHub Pages
+  </footer>
 
   <script>
-    const dashboardLinks = [
-      "https://app.powerbi.com/view?r=YOUR_REPORT_ID&pageName=ReportSection1",
-      "https://app.powerbi.com/view?r=YOUR_REPORT_ID&pageName=ReportSection2",
-      "https://app.powerbi.com/view?r=YOUR_REPORT_ID&pageName=ReportSection3"
-    ];
-
-    let current = 0;
-    const iframe = document.getElementById("dashboard");
-
-    function rotateDashboard() {
-      iframe.src = dashboardLinks[current];
-      current = (current + 1) % dashboardLinks.length;
-    }
-
-    // Start slideshow
-    rotateDashboard();
-    setInterval(rotateDashboard, 30000); // Change slide every 30 seconds
-
-    // Clock
     function updateClock() {
       const now = new Date();
-      const time = now.toLocaleTimeString();
-      const date = now.toLocaleDateString();
+      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const date = now.toLocaleDateString(undefined, {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
       document.getElementById("clock").textContent = `${date} – ${time}`;
     }
     setInterval(updateClock, 1000);
     updateClock();
   </script>
-
 </body>
 </html>
 

@@ -3,19 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Live Dashboard</title>
+  <title>Live Power BI Dashboard</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background: #061c35;
       color: #ffffff;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
       min-height: 100vh;
-      padding: 20px;
     }
 
     .header {
@@ -23,42 +21,40 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      background-color: #0b2a4a;
+      padding: 20px 40px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     .logo {
-      width: 140px;
-      height: auto;
+      height: 60px;
+      width: auto;
+      display: block;
+      background: #ffffff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      object-fit: contain;
     }
 
     .clock {
       font-size: 1.5rem;
-      font-weight: bold;
       color: #ffffff;
-    }
-
-    .circle-bg {
-      position: absolute;
-      top: -150px;
-      left: -150px;
-      width: 400px;
-      height: 400px;
-      background: #123456;
-      border-radius: 50%;
-      opacity: 0.2;
-      z-index: 0;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px 15px;
+      border-radius: 10px;
+      box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.2);
     }
 
     .dashboard-container {
-      position: relative;
-      width: 90%;
+      width: 100%;
       max-width: 1600px;
-      height: 80vh;
+      height: 85vh;
+      margin: 20px;
       background: #ffffff;
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-      z-index: 1;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     }
 
     iframe {
@@ -68,45 +64,47 @@
     }
 
     footer {
-      margin-top: auto;
       padding: 10px;
       font-size: 0.9rem;
-      color: #bbb;
-      z-index: 1;
+      color: #ccc;
     }
   </style>
+  <!-- Optional: Refresh page every 5 minutes -->
   <meta http-equiv="refresh" content="300" />
 </head>
 <body>
-  <div class="circle-bg"></div>
 
+  <!-- Header -->
   <div class="header">
-    <img class="logo" src="https://www.robertstravelgroup.co.uk/images/brand/logos/logo-white.svg" alt="Company Logo" />
-    <div class="clock" id="clock"></div>
+    <img src="https://www.robertstravelgroup.co.uk/images/brand/logos/logo-white.svg" alt="Company Logo" class="logo" />
+    <div id="clock" class="clock"></div>
   </div>
 
+  <!-- Power BI Embed -->
   <div class="dashboard-container">
     <iframe 
-      src="https://app.powerbi.com/view?r=YOUR_PUBLISH_TO_WEB_LINK_HERE&embedImagePlaceholder=true&toolbar=true" 
-      allowfullscreen
+      src="https://app.powerbi.com/view?r=YOUR_REPORT_LINK_HERE&embedImagePlaceholder=true&toolbar=1" 
+      allowfullscreen="true"
     ></iframe>
   </div>
 
+  <!-- Footer -->
   <footer>
-    © Roberts Travel Group • Powered by Power BI & GitHub Pages
+    Powered by Power BI · Hosted on GitHub Pages
   </footer>
 
+  <!-- Clock Script -->
   <script>
     function updateClock() {
       const now = new Date();
-      const time = now.toLocaleTimeString();
-      const date = now.toLocaleDateString();
+      const time = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      const date = now.toLocaleDateString('en-GB');
       document.getElementById("clock").textContent = `${date} – ${time}`;
     }
     setInterval(updateClock, 1000);
     updateClock();
   </script>
+
 </body>
 </html>
-
 

@@ -3,45 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard</title>
+  <title>Live Dashboard</title>
+  <meta http-equiv="refresh" content="180"/>
+
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #061c35;
-      color: #ffffff;
-    }
-
-    .container {
-      max-width: 1600px;
-      margin: 0 auto;
-      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #061c35;
+      color: white;
     }
 
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      padding: 20px 40px;
     }
 
-    .logo {
-      height: 60px;
-      width: auto;
+    .logo img {
+      height: 80px;
+      object-fit: contain;
     }
 
     .clock {
-      font-size: 1.4rem;
-      font-weight: 500;
+      font-size: 1.2rem;
+      font-weight: bold;
     }
 
     .dashboard-container {
-      width: 100%;
-      height: 85vh;
-      background: #ffffff;
-      border-radius: 20px;
+      width: 90%;
+      max-width: 1400px;
+      height: 80vh;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
     iframe {
@@ -49,41 +47,56 @@
       height: 100%;
       border: none;
     }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      padding-bottom: 10px;
+      font-size: 0.9rem;
+      color: #bbb;
+    }
   </style>
-  <!-- Optional auto-refresh every 5 minutes -->
-  <meta http-equiv="refresh" content="300">
 </head>
+
 <body>
+  <script>
+    var password = "yourpassword"; // 👈 Change this to your actual password
+    var entered = prompt("Please enter the password to access this dashboard:");
 
-  <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <img src="https://www.robertstravelgroup.co.uk/images/brand/logos/logo-white.svg" alt="Company Logo" class="logo">
-      <div class="clock" id="clock"></div>
-    </div>
+    if (entered !== password) {
+      document.body.innerHTML = "<h1 style='text-align:center;padding-top:20%;color:white;'>Access Denied</h1><p style='text-align:center;color:white;'>You entered the wrong password.</p>";
+    }
+  </script>
 
-    <!-- Power BI Embed -->
-    <div class="dashboard-container">
-      <iframe 
-        src="https://app.powerbi.com/view?r=YOUR_REPORT_LINK_HERE&embedImagePlaceholder=true&toolbar=1"
-        allowfullscreen="true">
-      </iframe>
+  <div class="header">
+    <div class="logo">
+      <img src="https://www.robertstravelgroup.co.uk/images/brand/logos/logo-white.svg" alt="Company Logo">
     </div>
+    <div class="clock" id="clock"></div>
   </div>
 
-  <!-- Clock Script -->
+  <div class="dashboard-container">
+    <iframe 
+      src="https://app.powerbi.com/view?r=YOUR_EMBED_LINK_HERE" 
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <footer>
+    Powered by Power BI & GitHub Pages
+  </footer>
+
   <script>
+    // Live Clock
     function updateClock() {
       const now = new Date();
-      const time = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      const date = now.toLocaleDateString('en-GB');
+      const time = now.toLocaleTimeString();
+      const date = now.toLocaleDateString();
       document.getElementById("clock").textContent = `${date} – ${time}`;
     }
     setInterval(updateClock, 1000);
     updateClock();
   </script>
-
 </body>
 </html>
-
 

@@ -3,115 +3,114 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Roberts Travel - Live Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <title>Live Power BI Dashboard</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background-color: #061c35;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #061c35;
       color: #ffffff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
       min-height: 100vh;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
-    .circle-bg {
+    .circle {
       position: absolute;
       top: -200px;
-      right: -200px;
+      left: -200px;
       width: 600px;
       height: 600px;
-      background-color: #0e2a50;
+      background-color: #183d63;
       border-radius: 50%;
       z-index: 0;
     }
 
     .header {
       position: relative;
-      z-index: 1;
       width: 100%;
-      max-width: 1200px;
+      text-align: left;
+      padding: 20px 40px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 20px;
+      z-index: 1;
     }
 
     .logo {
-      height: 80px;
-      width: auto;
+      height: 60px;
+      margin-right: 20px;
     }
 
     .clock {
-      font-size: 1.5rem;
-      font-weight: 500;
+      font-size: 1.3rem;
+      color: #d1d1d1;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
       color: #ffffff;
-      text-align: right;
+      flex-grow: 1;
     }
 
     .dashboard-container {
-      position: relative;
+      flex-grow: 1;
+      width: 100%;
+      height: 100%;
+      max-height: calc(100vh - 120px);
+      padding: 20px;
+      box-sizing: border-box;
       z-index: 1;
-      width: 90%;
-      max-width: 1200px;
-      height: 80vh;
-      background: #ffffff;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
     iframe {
       width: 100%;
       height: 100%;
       border: none;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     }
 
     footer {
-      margin-top: auto;
-      padding: 15px;
-      font-size: 0.9rem;
-      color: #ccc;
-      z-index: 1;
       text-align: center;
+      padding: 10px;
+      font-size: 0.9rem;
+      color: #999;
+      z-index: 1;
     }
   </style>
-  <!-- Optional: Refresh page every 5 minutes -->
+
+  <!-- Refresh page every 5 minutes -->
   <meta http-equiv="refresh" content="300" />
 </head>
 <body>
-  <div class="circle-bg"></div>
+  <div class="circle"></div>
 
   <div class="header">
-    <img src="https://www.robertstravelgroup.co.uk/images/brand/logos/logo-white.svg" alt="Roberts Logo" class="logo" />
+    <img class="logo" src="https://www.robertstravelgroup.co.uk/images/brand/logos/logo-white.svg" alt="Company Logo" />
     <div class="clock" id="clock"></div>
   </div>
 
   <div class="dashboard-container">
     <iframe 
-      src="https://app.powerbi.com/reportEmbed?reportId=39a90441-9819-4d4b-8471-c5dcb2a957f5&autoAuth=true&ctid=2330b479-2e5b-4416-aeec-e1cbf7277d6d"
+      src="https://app.powerbi.com/view?r=YOUR_REPORT_LINK_HERE" 
       allowfullscreen
     ></iframe>
   </div>
 
   <footer>
-    © Roberts Travel Group | Powered by Power BI & GitHub Pages
+    Powered by Power BI & GitHub Pages
   </footer>
 
   <script>
+    // Live Clock
     function updateClock() {
       const now = new Date();
-      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      const date = now.toLocaleDateString(undefined, {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
+      const time = now.toLocaleTimeString();
+      const date = now.toLocaleDateString();
       document.getElementById("clock").textContent = `${date} – ${time}`;
     }
     setInterval(updateClock, 1000);
@@ -119,4 +118,5 @@
   </script>
 </body>
 </html>
+
 
